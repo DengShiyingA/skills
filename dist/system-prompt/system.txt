@@ -146,6 +146,15 @@ Covers HarmonyOS 6.1 (API 23, stable) / 6.1.1 (API 24, Release) / HarmonyOS 7 de
 - UX testing supports multi-device layout comparison across straight-screen and foldable devices.
 - Test-service matrix includes local app listing precheck, performance baseline/monitoring, stability baseline, memory-leak testing, UX baseline and multi-device layout comparison, security baseline, power baseline, functional-experience baseline, exploratory testing, regression testing, device projection, UIViewer, app graph management, performance report auto-analysis, and report comparison.
 
+**HarmonyOS AI development tools and capability highlights (officially surfaced 2026/06):**
+- **DevEco Code** — a HarmonyOS-focused AI coding Agent for planning, code generation, build/run, device logs, UI verification, ArkTS checking, knowledge lookup, debugging, and iterative repair. It complements DevEco Studio rather than replacing the SDK/toolchain.
+- **DevEco CLI** — Agent-friendly command-line access to project creation, syntax checks, build, device run/debug, and other HarmonyOS engineering actions; use it for third-party coding Agents, automation, and CI/CD integration.
+- **Agent Framework Kit** — launches a combination of system Agents from an app through UI controls. Keep it distinct from Intents Kit (declaring app intents), ArkTS script-based app Skills (exposing app capabilities), and device-side A2A (Agent-to-Agent communication).
+- **HarmonyOS 7 experience areas** — spatial-audio processing nodes, app/game quick start, cold-start network preconnection, QUIC and weak-network live-stream optimization, and LTPO variable frame rate are highlighted platform capabilities; confirm the installed API 26 SDK and device support before presenting them as generally available APIs.
+- **API 26 cloud debugging** — AGC remote-device cloud debugging can filter devices by API 26 or system version `7.0.0.23` for early compatibility validation.
+
+For tool selection, capability boundaries, and answer rules, read `references/ai-development-tools.md`.
+
 ### Official documentation updates (2026/06/12)
 
 Huawei's release docs did not add a newer SDK after 26.0.0 Beta1, but the documentation change log added several developer-facing guides worth surfacing in answers:
@@ -4450,6 +4459,7 @@ The root `SKILL.md` remains the discovery entry. These files are loaded only whe
 | User intent | Read first | Then read |
 |---|---|---|
 | Version, SDK, DevEco Studio, API baseline | `platform-baseline.md` | `api26-preview.md` only for preview requests |
+| DevEco Code/CLI, Agent Framework, app Skill, Intents, A2A | `ai-development-tools.md` | `api26-preview.md` for HarmonyOS 7 preview details |
 | ArkTS syntax or TypeScript migration | `arkts-rules.md` | `../examples/*.ets` |
 | ArkUI layout, components, rendering | `arkui-components.md` | `state-management.md` |
 | Stage model lifecycle | `stage-model.md` | `../recipes/debug-build-error.md` |
@@ -4462,6 +4472,52 @@ The root `SKILL.md` remains the discovery entry. These files are loaded only whe
 ## Production default
 
 Use API 24 Release as the production default unless the user explicitly targets HarmonyOS 7 / API 26 preview.
+
+---
+
+## harmonyos-development/references/ai-development-tools.md
+
+# HarmonyOS AI Development Tools
+
+Use this reference for DevEco Code, DevEco CLI, Agent Framework Kit, app Skills, Intents Kit, A2A, and HarmonyOS 7 AI-assisted development questions.
+
+## Tool selection
+
+| Need | Prefer |
+|---|---|
+| Full IDE editing, preview, profiling, signing, emulator, and graphical debugging | DevEco Studio |
+| Agent-led HarmonyOS implementation and iterative build/run/verify/fix workflows | DevEco Code |
+| Scriptable project, build, check, device, and debugging actions for Agents or CI/CD | DevEco CLI |
+| General-purpose third-party coding Agent | Its native workflow plus DevEco CLI/Hvigor/HDC and this skill |
+
+DevEco Code is a HarmonyOS-focused coding Agent, while DevEco CLI is the execution layer designed for command-line automation and Agent invocation. Neither changes the production SDK baseline: use API 24 Release by default and API 26 Beta1 only for preview/adaptation work.
+
+## Agent capability boundaries
+
+| Capability | Purpose |
+|---|---|
+| Agent Framework Kit | Let an app actively launch system Agent combinations through UI controls |
+| Intents Kit | Declare app or atomic-service functions as system-recognizable intents |
+| ArkTS script-based app Skill | Expose app business capabilities to system intelligent entry points through a declared contract |
+| Device-side A2A | Connect an app-side Agent with system Agents using registered components, authenticated bidirectional communication, and interactive UI |
+| AgentCard | Present Agent-related content or interaction through supported card capabilities |
+
+Do not use these names interchangeably. First identify whether the user needs UI-triggered Agent invocation, intent exposure, an app Skill, Agent-to-Agent communication, or card presentation.
+
+## HarmonyOS 7 capability notes
+
+- Skill Vibe Coding assists app Skill development, debugging, review, and publishing.
+- Visual AI, 3DGS, spatial-audio nodes, app/game quick start, cold-start network preconnection, QUIC, weak-network live-stream optimization, and LTPO variable frame rate are highlighted HarmonyOS 7 capability areas.
+- Treat marketing-level capability descriptions as discovery signals, not stable API signatures. Verify the API 26 SDK reference, device category, permissions, and feature availability before generating production code.
+- For AGC cloud debugging, filter remote devices by API 26 or system version `7.0.0.23` when validating HarmonyOS 7 compatibility.
+
+## Answer rules
+
+1. State whether the request is about DevEco Studio, DevEco Code, DevEco CLI, or a third-party Agent.
+2. Keep API 24 production guidance separate from API 26 Beta preview guidance.
+3. Name the exact Agent capability layer instead of using generic terms such as "HarmonyOS Agent API."
+4. Do not invent DevEco CLI command names. Use installed-tool help or official documentation for exact commands and flags.
+5. For device-dependent capabilities such as LTPO or spatial audio, require SDK and hardware support verification.
 
 ---
 

@@ -2,7 +2,8 @@
 name: harmonyos-development
 description: >
   Use when developing, reviewing, debugging, or migrating HarmonyOS NEXT native apps
-  with ArkTS, ArkUI, DevEco Studio, Stage model, UIAbility, .ets, module.json5,
+  with ArkTS, ArkUI, DevEco Studio, DevEco Code, DevEco CLI, Agent Framework Kit,
+  Stage model, UIAbility, .ets, module.json5,
   oh-package.json5, HAP/HSP/HAR, API 22-24, API 26 Beta1, HarmonyOS 6.1,
   HarmonyOS 6.1.1 Release, HarmonyOS 7 preview, HarmonyOS 26.0.0 Beta1,
   state management decorators, Navigation/NavPathStack, ArkTS concurrency,
@@ -155,6 +156,15 @@ Covers HarmonyOS 6.1 (API 23, stable) / 6.1.1 (API 24, Release) / HarmonyOS 7 de
 - Stability testing can target specified entry points to trigger stability issues and expands memory-leak detection coverage.
 - UX testing supports multi-device layout comparison across straight-screen and foldable devices.
 - Test-service matrix includes local app listing precheck, performance baseline/monitoring, stability baseline, memory-leak testing, UX baseline and multi-device layout comparison, security baseline, power baseline, functional-experience baseline, exploratory testing, regression testing, device projection, UIViewer, app graph management, performance report auto-analysis, and report comparison.
+
+**HarmonyOS AI development tools and capability highlights (officially surfaced 2026/06):**
+- **DevEco Code** — a HarmonyOS-focused AI coding Agent for planning, code generation, build/run, device logs, UI verification, ArkTS checking, knowledge lookup, debugging, and iterative repair. It complements DevEco Studio rather than replacing the SDK/toolchain.
+- **DevEco CLI** — Agent-friendly command-line access to project creation, syntax checks, build, device run/debug, and other HarmonyOS engineering actions; use it for third-party coding Agents, automation, and CI/CD integration.
+- **Agent Framework Kit** — launches a combination of system Agents from an app through UI controls. Keep it distinct from Intents Kit (declaring app intents), ArkTS script-based app Skills (exposing app capabilities), and device-side A2A (Agent-to-Agent communication).
+- **HarmonyOS 7 experience areas** — spatial-audio processing nodes, app/game quick start, cold-start network preconnection, QUIC and weak-network live-stream optimization, and LTPO variable frame rate are highlighted platform capabilities; confirm the installed API 26 SDK and device support before presenting them as generally available APIs.
+- **API 26 cloud debugging** — AGC remote-device cloud debugging can filter devices by API 26 or system version `7.0.0.23` for early compatibility validation.
+
+For tool selection, capability boundaries, and answer rules, read `references/ai-development-tools.md`.
 
 ### Official documentation updates (2026/06/12)
 

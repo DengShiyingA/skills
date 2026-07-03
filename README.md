@@ -8,7 +8,7 @@
 
 ### 鸿蒙最大的 AI 编程知识库 · 让 11+ AI 工具真正会写 ArkTS
 
-*4440 行实战知识 · 242 个章节 · 105+ 代码示例 · 生产覆盖 API 24，跟踪 HarmonyOS 7 / API 26 Beta1*
+*4450 行实战知识 · 242 个章节 · 105+ 代码示例 · 生产覆盖 API 24，跟踪 HarmonyOS 7 / API 26 Beta1*
 
 [![License](https://img.shields.io/badge/License-MIT-yellow)](./LICENSE)
 [![HarmonyOS](https://img.shields.io/badge/HarmonyOS-6.1%20%2F%206.1.1-black)](https://developer.huawei.com/consumer/cn/)
@@ -28,7 +28,7 @@
 **问 Copilot `@ObjectLink` 怎么用，它说"这 API 不存在"？**
 
 通用大模型从来没系统学过鸿蒙——它们的训练数据里几乎没有 ArkTS、Stage 模型、HarmonyOS Kit。
-所以我把华为官方文档、最佳实践、API 参考浓缩成一份**4440 行、可直接喂进 LLM 上下文**的知识包，从 ArkTS 严格语法到 60+ Kit、从液态玻璃到 AI super frame、从应用接续到 PersistenceV2，全都覆盖。
+所以我把华为官方文档、最佳实践、API 参考浓缩成一份**4450 行、可直接喂进 LLM 上下文**的知识包，从 ArkTS 严格语法到 60+ Kit、从液态玻璃到 AI super frame、从应用接续到 PersistenceV2，全都覆盖。
 
 **一份 Markdown 源文件，自动产出 11+ AI 工具的配置。** 装上之后，AI 会像读过华为文档的工程师一样，给你符合鸿蒙规范的代码——而不是把 `@State` 写成 `useState`。
 
@@ -117,7 +117,7 @@ Skill 是一段领域知识（Markdown 格式），AI 编程工具会在对话�
 <img src="./assets/knowledge-map.svg" alt="知识架构图" width="100%"/>
 </div>
 
-这份知识包教会 AI 读写、审查和调试 HarmonyOS NEXT 原生应用所需的一切（**4440 行密集、可操作的知识，242 个章节，105+ 代码示例**）：
+这份知识包教会 AI 读写、审查和调试 HarmonyOS NEXT 原生应用所需的一切（**4450 行密集、可操作的知识，242 个章节，105+ 代码示例**）：
 
 - **语言与框架** — ArkTS 严格模式规则、命名规范、13 条高性能编码规则（const、TypedArray、HashMap、lazy import 等）、编码风格指南
 - **应用架构** — Stage 模型：UIAbility、ExtensionAbility、AbilityStage、WindowStage 生命周期；module.json5 / app.json5 配置

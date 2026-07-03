@@ -9,6 +9,7 @@ The root `SKILL.md` remains the discovery entry. These files are loaded only whe
 | User intent | Read first | Then read |
 |---|---|---|
 | Version, SDK, DevEco Studio, API baseline | `platform-baseline.md` | `api26-preview.md` only for preview requests |
+| DevEco Code/CLI, Agent Framework, app Skill, Intents, A2A | `ai-development-tools.md` | `api26-preview.md` for HarmonyOS 7 preview details |
 | ArkTS syntax or TypeScript migration | `arkts-rules.md` | `../examples/*.ets` |
 | ArkUI layout, components, rendering | `arkui-components.md` | `state-management.md` |
 | Stage model lifecycle | `stage-model.md` | `../recipes/debug-build-error.md` |
