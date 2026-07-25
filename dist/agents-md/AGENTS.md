@@ -77,7 +77,7 @@ Covers HarmonyOS 6.1 (API 23, stable) / 6.1.1 (API 24, Release) / HarmonyOS 7 de
 
 ### HarmonyOS 7 / API 26 Beta1 preview (2026/06/12)
 
-**Status:** developer Beta, not the default production baseline. Mention API 26 features only when the user asks about HarmonyOS 7, API 26, HDC 2026, preview adaptation, or Beta1 capabilities. For production code, prefer API 24 Release unless the project explicitly targets API 26 preview.
+**Status (checked 2026/07/25):** developer Beta, not the default production baseline. Huawei has not published API 26 Beta2, RC, or Release. Mention API 26 features only when the user asks about HarmonyOS 7, API 26, HDC 2026, preview adaptation, or Beta1 capabilities. For production code, prefer API 24 Release unless the project explicitly targets API 26 preview.
 
 **Developer kit baseline:** HarmonyOS SDK **26.0.0 Beta1** (OpenHarmony SDK `Ohos_sdk_public 26.0.0.23`, API Version 26.0.0 Beta1) and DevEco Studio **26.0.0 Beta1 (26.0.0.461)**. Toolchain: HarmonyOS Emulator **26.0.0.200**, Hvigor/hvigorw **6.26.1**, ohpm **26.0.0.410**, Node.js **24.14.1**, hstack **6.0.0**, `compileSdkVersion: "26.0.0"`, `targetSdkVersion: "4.0.0(10)~26.0.0"`.
 
@@ -147,6 +147,7 @@ Covers HarmonyOS 6.1 (API 23, stable) / 6.1.1 (API 24, Release) / HarmonyOS 7 de
 **HarmonyOS AI development tools and capability highlights (officially surfaced 2026/06):**
 - **DevEco Code** — a HarmonyOS-focused AI coding Agent for planning, code generation, build/run, device logs, UI verification, ArkTS checking, knowledge lookup, debugging, and iterative repair. It complements DevEco Studio rather than replacing the SDK/toolchain.
 - **DevEco CLI** — Agent-friendly command-line access to project creation, syntax checks, build, device run/debug, and other HarmonyOS engineering actions; use it for third-party coding Agents, automation, and CI/CD integration.
+- **CodeGenie** — the DevEco Studio AI assistant/plugin remains a separate product surface. Huawei lists CodeGenie 6.1.1 Release, Command Line Tools 6.1.1 Release, and DevEco Studio 6.1.1 Release for the production toolchain; the API 26 toolchain remains Beta1.
 - **Agent Framework Kit** — launches a combination of system Agents from an app through UI controls. Keep it distinct from Intents Kit (declaring app intents), ArkTS script-based app Skills (exposing app capabilities), and device-side A2A (Agent-to-Agent communication).
 - **HarmonyOS 7 experience areas** — spatial-audio processing nodes, app/game quick start, cold-start network preconnection, QUIC and weak-network live-stream optimization, and LTPO variable frame rate are highlighted platform capabilities; confirm the installed API 26 SDK and device support before presenting them as generally available APIs.
 - **API 26 cloud debugging** — AGC remote-device cloud debugging can filter devices by API 26 or system version `7.0.0.23` for early compatibility validation.
@@ -162,6 +163,15 @@ Huawei's release docs did not add a newer SDK after 26.0.0 Beta1, but the docume
 - **Window management** — 20+ development scenarios were reorganized and expanded, including window type, mode, layout, focus, and a new guide for locating common window logs/issues with `hidumper`.
 - **ArkTS Sendable practice** — new Sendable migration/practice guide demonstrates using TurboTransJSON to operate on Sendable objects in ArkTS.
 - **FA model docs moved** — FA model is no longer the recommended app model except mainly for lightweight smart wearables; general HarmonyOS app docs now retain Stage model content, while FA model guidance moved under lightweight wearable app development basics.
+
+### Official documentation updates (2026/07)
+
+No newer HarmonyOS 7 SDK was published, but several official guides now affect implementation and review answers:
+
+- **Native C API compatibility** — SDK API 22+ can use weak references with `APIAVAILABLE` for APIs newer than `compatibleSdkVersion`. Correct link dependencies, weak-library configuration for libraries absent on old devices, runtime fallbacks, and tests on both the oldest compatible device and the new-API device are mandatory. Compilation alone is insufficient because a missing dependency can fail only at runtime. Read `references/native-api-compatibility.md`.
+- **Linux CI pipeline** — use JDK 17 and the matching Command Line Tools, prefer their bundled Node.js, install project/module dependencies, run Hvigor with `--no-daemon`, protect signing secrets, install signed HAPs with HDC, and enable `caseSensitiveCheck` to expose filename/import mismatches hidden by Windows or macOS. Read `references/build-sign-release.md`.
+- **ArkTS leak detection** — use `@ohos.hiviewdfx.jsLeakWatcher` primarily in development; production use should be limited to a small gray-release population. Combine it with JS Heap snapshots, HWASan/AddrSanitizer, AppFreeze, and HiAppEvent according to the suspected layer. Read `references/performance.md`.
+- **Container-responsive ArkUI** — use `ContainerReader` when layout must react to the containing component rather than the window. API 26 also documents centralized reuse pools for `@Reusable` / `@ReusableV2`; reuse requires explicit lifecycle cleanup and state reset. Read `references/arkui-components.md`.
 
 ## Project layout (Stage model)
 
@@ -4460,11 +4470,12 @@ The root `SKILL.md` remains the discovery entry. These files are loaded only whe
 | DevEco Code/CLI, Agent Framework, app Skill, Intents, A2A | `ai-development-tools.md` | `api26-preview.md` for HarmonyOS 7 preview details |
 | ArkTS syntax or TypeScript migration | `arkts-rules.md` | `../examples/*.ets` |
 | ArkUI layout, components, rendering | `arkui-components.md` | `state-management.md` |
+| Native C/C++ API availability across OS versions | `native-api-compatibility.md` | `build-sign-release.md` |
 | Stage model lifecycle | `stage-model.md` | `../recipes/debug-build-error.md` |
 | Navigation and page stack | `navigation.md` | `state-management.md` |
 | State decorators and data flow | `state-management.md` | `arkts-rules.md` |
 | Permissions and privacy prompts | `permissions.md` | `../examples/permission-request.ets` |
-| Build, signing, packaging, release | `build-sign-release.md` | `platform-baseline.md` |
+| Build, CI, signing, packaging, release | `build-sign-release.md` | `platform-baseline.md` |
 | Performance and large lists | `performance.md` | `../examples/lazyforeach-list.ets` |
 
 ## Production default
@@ -4596,6 +4607,7 @@ Use this reference when the user asks about ArkUI layout, components, rendering,
 | Flexible wrapping layout | `Flex` |
 | Large lists | `List` + `LazyForEach` |
 | Grid content | `Grid` / `GridItem` |
+| Layout that responds to its containing component | `ContainerReader` container breakpoints |
 | Paged tabs | `Tabs` / `TabContent` |
 | Swipe carousel | `Swiper` |
 | Navigation shell | `Navigation` / `NavDestination` |
@@ -4607,6 +4619,23 @@ Use this reference when the user asks about ArkUI layout, components, rendering,
 - Use stable keys for dynamic list rendering.
 - Keep component state ownership clear.
 - Include permission, routing, or module configuration when the component depends on it.
+
+## Container-responsive layout
+
+Use `ContainerReader` when a reusable component must change layout according to its own container instead of the application window. This is more precise than a window breakpoint for sidebars, split views, nested panes, and reusable cards.
+
+Do not replace `ContainerReader` with a one-time window-width query. Keep the breakpoint decision attached to the container so it updates when the parent layout changes.
+
+## Global component reuse
+
+API 26 documentation adds centralized global reuse pools for `@Reusable` and `@ReusableV2` components. Use them only for components whose lifecycle and state-reset behavior are designed for reuse:
+
+- release heavy resources in the recycle lifecycle;
+- reset transient state before reused content becomes visible;
+- keep reuse identifiers stable and compatible with the target SDK;
+- profile first, because reuse adds lifecycle complexity and is not automatically faster for small pages.
+
+Official update summary: https://developer.huawei.com/consumer/cn/monthly/202606
 
 ---
 
@@ -4636,6 +4665,71 @@ Ask for or inspect:
 - Hvigor error log
 - signing profile or certificate error message
 
+## Linux CI baseline
+
+- Use a 64-bit Linux environment with GLIBC 2.28 or newer.
+- Use JDK 17.
+- Prefer the Node.js bundled with the matching Command Line Tools.
+- The Command Line Tools include the matching HarmonyOS SDK, `hdc`, Hvigor, and ohpm.
+- Run commands only for a trusted project.
+- Keep signing keys and passwords in CI secrets, never in the repository.
+
+Install dependencies at the project root and in every module that declares dependencies:
+
+```sh
+ohpm install --all
+```
+
+Build with `--no-daemon` in CI:
+
+```sh
+hvigorw clean --no-daemon
+hvigorw assembleHap --mode module -p product=default -p buildMode=debug --no-daemon
+hvigorw assembleHsp --mode module -p module=library@default -p product=default --no-daemon
+hvigorw assembleHar --mode module -p module=library@default -p product=default --no-daemon
+hvigorw assembleApp --mode project -p product=default -p buildMode=release --no-daemon
+```
+
+Linux is case-sensitive. Enable the project-level strict check so Windows/macOS development does not hide import or resource filename mismatches:
+
+```json5
+{
+  "app": {
+    "products": [
+      {
+        "name": "default",
+        "compatibleSdkVersion": "26.0.0",
+        "runtimeOS": "HarmonyOS",
+        "buildOption": {
+          "strictMode": {
+            "caseSensitiveCheck": true
+          }
+        }
+      }
+    ]
+  }
+}
+```
+
+Use the configuration location generated for the installed toolchain if its project schema differs.
+
+## Signing and device smoke test
+
+- Prefer a project `signingConfigs` entry populated from CI secrets.
+- For manual signing, use the Command Line Tools copy of `hap-sign-tool.jar`.
+- Never print `.p12` passwords, private keys, or complete signing commands containing secrets.
+
+Install and launch a signed HAP:
+
+```sh
+hdc file send entry-signed.hap data/local/tmp/entry-signed.hap
+hdc shell bm install -p data/local/tmp/entry-signed.hap
+hdc shell aa start -a EntryAbility -b com.example.myapplication -m entry
+hdc shell rm -f data/local/tmp/entry-signed.hap
+```
+
+When multiple devices are connected, select the target explicitly. Capture HiLog and make the pipeline fail when installation, launch, or the smoke test fails.
+
 ## Packaging notes
 
 | Package | Use |
@@ -4651,6 +4745,89 @@ Ask for or inspect:
 - Signing profile is correct.
 - Release build uses expected obfuscation and resource settings.
 - Generated `dist/` is reproducible through CI.
+
+Official CI reference: https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/ide-command-line-building-app
+
+---
+
+## harmonyos-development/references/native-api-compatibility.md
+
+# Native API Compatibility Reference
+
+Use this reference when C/C++ code calls APIs newer than `compatibleSdkVersion`, or when a low-version device fails while loading a native library.
+
+## Core rule
+
+Starting with SDK API 22, HarmonyOS can use C API weak references together with `APIAVAILABLE` to keep one native codebase compatible across system versions. This is an advanced mechanism: missing link dependencies can still compile successfully and then crash at runtime.
+
+Do not treat any one of these as sufficient by itself:
+
+- `compileSdkVersion`
+- SystemCapability checks
+- a preprocessor version check
+- exception handling
+- `APIAVAILABLE` without correct link configuration
+
+## Hvigor projects
+
+1. Use matching DevEco Studio and SDK versions.
+2. Pass `compatibleSdkVersion` to the compiler to enable availability checks.
+3. Link every library that provides a referenced API.
+4. If the providing dynamic library does not exist on older devices, configure it as a weak library as well as a link dependency.
+5. Wrap every newer API call with `APIAVAILABLE` and provide a fallback.
+6. Test both the oldest compatible device and a device that supports the new API.
+
+For DevEco Studio versions newer than 6.0.2.640 Release, except 6.1.0.830, add the matching argument in the module-level `build-profile.json5`:
+
+```json5
+{
+  "buildOption": {
+    "externalNativeOptions": {
+      "arguments": "-DOHOS_COMPATIBLE_SDK_VERSION=20.0.0"
+    }
+  }
+}
+```
+
+Use the exact configuration shape generated or documented for the installed DevEco Studio version. DevEco Studio 6.1.0.830 derives this value automatically; a stale manual value must be removed or kept synchronized.
+
+## Link behavior
+
+If the providing library exists on the old device, add it to `target_link_libraries`. If the library itself is absent on the old device, also mark it as weak:
+
+```cmake
+target_link_libraries(entry PUBLIC libohi18n.so)
+target_link_options(entry PUBLIC "-Wl,--ohos-weak-library=libohi18n.so")
+```
+
+Temporarily disabling weak-reference support is a useful link-completeness check: the project should still identify every required library during a strong-link build.
+
+## Runtime guard
+
+`APIAVAILABLE` wraps the compiler availability check. The version must be at least the API version that introduced the function:
+
+```cpp
+if (APIAVAILABLE(26, 0, 0)) {
+  // Call the API introduced in 26.0.0.
+} else {
+  // Compatible fallback for older devices.
+}
+```
+
+Legacy HarmonyOS version `X.Y.Z(N)` and OpenHarmony API `N` use `N.0.0` in availability checks. The API version format changed to SemVer at 26.0.0, but the compatibility ordering remains:
+
+`26.0.0 > 6.1.1(24) > 6.1.0(23) > 6.0.2(22)`.
+
+## Required runtime verification
+
+- Cold-start the app on a device matching `compatibleSdkVersion`.
+- Exercise the old-device fallback path.
+- Exercise the new API path on its supported SDK/device.
+- Verify every referenced native library is linked.
+- For libraries absent on old devices, verify weak-library configuration.
+- Do not accept compilation alone as evidence: weak references can hide missing dependencies until runtime.
+
+Official reference: https://developer.huawei.com/consumer/cn/doc/harmonyos-releases/c-api-compatibility-warning
 
 ---
 
@@ -4709,6 +4886,23 @@ Ask for:
 - reproduction steps
 - HiLog / AppFreeze / performance report
 - screenshot or screen recording when UI jank is visual
+
+## Memory-leak diagnostics
+
+Use the smallest tool that can identify the suspected leak:
+
+| Suspected area | Prefer |
+|---|---|
+| ArkTS component or lifecycle object | `@ohos.hiviewdfx.jsLeakWatcher` during development |
+| ArkTS heap retention path | DevEco Studio JS Heap / heap snapshot |
+| Native allocation or free error | HWASan / AddrSanitizer in development or test |
+| Runtime freeze or resource pressure | AppFreeze, HiAppEvent, HiLog, DevEco Testing |
+
+`jsLeakWatcher` periodically checks whether registered lifecycle objects remain alive after they should be collectible. It is intended primarily for development. If production diagnosis is unavoidable, use a small gray-release population rather than enabling it permanently for all users.
+
+Do not claim a leak is fixed from one heap snapshot. Reproduce the lifecycle, force or wait for collection as appropriate, compare retained objects, fix the ownership path, and repeat the same scenario.
+
+Official reference: https://developer.huawei.com/consumer/cn/doc/best-practices/bpta-stability-memleak-detection-overview
 
 ## Output rule
 

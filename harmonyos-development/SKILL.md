@@ -9,7 +9,8 @@ description: >
   state management decorators, Navigation/NavPathStack, ArkTS concurrency,
   permissions, persistence, networking, media, Camera Kit, Scan Kit, Map Kit,
   Push Kit, Payment Kit, App Linking, Share Kit, Weather Service Kit, ArkGuard,
-  testing, performance, or common 鸿蒙开发 workflows.
+  APIAVAILABLE, ContainerReader, jsLeakWatcher, Linux CI, testing, performance,
+  or common 鸿蒙开发 workflows.
 ---
 
 # HarmonyOS (鸿蒙) Development
@@ -90,7 +91,7 @@ Covers HarmonyOS 6.1 (API 23, stable) / 6.1.1 (API 24, Release) / HarmonyOS 7 de
 
 ### HarmonyOS 7 / API 26 Beta1 preview (2026/06/12)
 
-**Status:** developer Beta, not the default production baseline. Mention API 26 features only when the user asks about HarmonyOS 7, API 26, HDC 2026, preview adaptation, or Beta1 capabilities. For production code, prefer API 24 Release unless the project explicitly targets API 26 preview.
+**Status (checked 2026/07/25):** developer Beta, not the default production baseline. Huawei has not published API 26 Beta2, RC, or Release. Mention API 26 features only when the user asks about HarmonyOS 7, API 26, HDC 2026, preview adaptation, or Beta1 capabilities. For production code, prefer API 24 Release unless the project explicitly targets API 26 preview.
 
 **Developer kit baseline:** HarmonyOS SDK **26.0.0 Beta1** (OpenHarmony SDK `Ohos_sdk_public 26.0.0.23`, API Version 26.0.0 Beta1) and DevEco Studio **26.0.0 Beta1 (26.0.0.461)**. Toolchain: HarmonyOS Emulator **26.0.0.200**, Hvigor/hvigorw **6.26.1**, ohpm **26.0.0.410**, Node.js **24.14.1**, hstack **6.0.0**, `compileSdkVersion: "26.0.0"`, `targetSdkVersion: "4.0.0(10)~26.0.0"`.
 
@@ -160,6 +161,7 @@ Covers HarmonyOS 6.1 (API 23, stable) / 6.1.1 (API 24, Release) / HarmonyOS 7 de
 **HarmonyOS AI development tools and capability highlights (officially surfaced 2026/06):**
 - **DevEco Code** — a HarmonyOS-focused AI coding Agent for planning, code generation, build/run, device logs, UI verification, ArkTS checking, knowledge lookup, debugging, and iterative repair. It complements DevEco Studio rather than replacing the SDK/toolchain.
 - **DevEco CLI** — Agent-friendly command-line access to project creation, syntax checks, build, device run/debug, and other HarmonyOS engineering actions; use it for third-party coding Agents, automation, and CI/CD integration.
+- **CodeGenie** — the DevEco Studio AI assistant/plugin remains a separate product surface. Huawei lists CodeGenie 6.1.1 Release, Command Line Tools 6.1.1 Release, and DevEco Studio 6.1.1 Release for the production toolchain; the API 26 toolchain remains Beta1.
 - **Agent Framework Kit** — launches a combination of system Agents from an app through UI controls. Keep it distinct from Intents Kit (declaring app intents), ArkTS script-based app Skills (exposing app capabilities), and device-side A2A (Agent-to-Agent communication).
 - **HarmonyOS 7 experience areas** — spatial-audio processing nodes, app/game quick start, cold-start network preconnection, QUIC and weak-network live-stream optimization, and LTPO variable frame rate are highlighted platform capabilities; confirm the installed API 26 SDK and device support before presenting them as generally available APIs.
 - **API 26 cloud debugging** — AGC remote-device cloud debugging can filter devices by API 26 or system version `7.0.0.23` for early compatibility validation.
@@ -175,6 +177,15 @@ Huawei's release docs did not add a newer SDK after 26.0.0 Beta1, but the docume
 - **Window management** — 20+ development scenarios were reorganized and expanded, including window type, mode, layout, focus, and a new guide for locating common window logs/issues with `hidumper`.
 - **ArkTS Sendable practice** — new Sendable migration/practice guide demonstrates using TurboTransJSON to operate on Sendable objects in ArkTS.
 - **FA model docs moved** — FA model is no longer the recommended app model except mainly for lightweight smart wearables; general HarmonyOS app docs now retain Stage model content, while FA model guidance moved under lightweight wearable app development basics.
+
+### Official documentation updates (2026/07)
+
+No newer HarmonyOS 7 SDK was published, but several official guides now affect implementation and review answers:
+
+- **Native C API compatibility** — SDK API 22+ can use weak references with `APIAVAILABLE` for APIs newer than `compatibleSdkVersion`. Correct link dependencies, weak-library configuration for libraries absent on old devices, runtime fallbacks, and tests on both the oldest compatible device and the new-API device are mandatory. Compilation alone is insufficient because a missing dependency can fail only at runtime. Read `references/native-api-compatibility.md`.
+- **Linux CI pipeline** — use JDK 17 and the matching Command Line Tools, prefer their bundled Node.js, install project/module dependencies, run Hvigor with `--no-daemon`, protect signing secrets, install signed HAPs with HDC, and enable `caseSensitiveCheck` to expose filename/import mismatches hidden by Windows or macOS. Read `references/build-sign-release.md`.
+- **ArkTS leak detection** — use `@ohos.hiviewdfx.jsLeakWatcher` primarily in development; production use should be limited to a small gray-release population. Combine it with JS Heap snapshots, HWASan/AddrSanitizer, AppFreeze, and HiAppEvent according to the suspected layer. Read `references/performance.md`.
+- **Container-responsive ArkUI** — use `ContainerReader` when layout must react to the containing component rather than the window. API 26 also documents centralized reuse pools for `@Reusable` / `@ReusableV2`; reuse requires explicit lifecycle cleanup and state reset. Read `references/arkui-components.md`.
 
 ## Project layout (Stage model)
 

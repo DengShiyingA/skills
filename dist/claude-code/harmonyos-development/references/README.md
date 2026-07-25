@@ -12,11 +12,12 @@ The root `SKILL.md` remains the discovery entry. These files are loaded only whe
 | DevEco Code/CLI, Agent Framework, app Skill, Intents, A2A | `ai-development-tools.md` | `api26-preview.md` for HarmonyOS 7 preview details |
 | ArkTS syntax or TypeScript migration | `arkts-rules.md` | `../examples/*.ets` |
 | ArkUI layout, components, rendering | `arkui-components.md` | `state-management.md` |
+| Native C/C++ API availability across OS versions | `native-api-compatibility.md` | `build-sign-release.md` |
 | Stage model lifecycle | `stage-model.md` | `../recipes/debug-build-error.md` |
 | Navigation and page stack | `navigation.md` | `state-management.md` |
 | State decorators and data flow | `state-management.md` | `arkts-rules.md` |
 | Permissions and privacy prompts | `permissions.md` | `../examples/permission-request.ets` |
-| Build, signing, packaging, release | `build-sign-release.md` | `platform-baseline.md` |
+| Build, CI, signing, packaging, release | `build-sign-release.md` | `platform-baseline.md` |
 | Performance and large lists | `performance.md` | `../examples/lazyforeach-list.ets` |
 
 ## Production default

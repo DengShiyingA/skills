@@ -7,6 +7,7 @@ test -f harmonyos-development/references/README.md
 test -f harmonyos-development/references/platform-baseline.md
 test -f harmonyos-development/references/api26-preview.md
 test -f harmonyos-development/references/ai-development-tools.md
+test -f harmonyos-development/references/native-api-compatibility.md
 test -f harmonyos-development/references/arkts-rules.md
 test -f harmonyos-development/references/arkui-components.md
 test -f harmonyos-development/references/stage-model.md

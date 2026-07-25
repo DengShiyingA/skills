@@ -75,3 +75,42 @@ cases:
       - "oh-package.json5"
     must_not_include:
       - "只重启电脑"
+
+  - id: native-api-compatibility
+    prompt: "compatibleSdkVersion 是 API 20，但 Native 代码调用了更高版本 C API，怎样避免低版本设备崩溃？"
+    must_include:
+      - "APIAVAILABLE"
+      - "弱引用"
+      - "依赖库"
+      - "低版本设备"
+    must_not_include:
+      - "只判断 SystemCapability"
+
+  - id: linux-ci-pipeline
+    prompt: "给我一套 HarmonyOS Linux CI 构建、签名和真机安装的关键步骤。"
+    must_include:
+      - "JDK 17"
+      - "ohpm install"
+      - "--no-daemon"
+      - "caseSensitiveCheck"
+      - "hdc"
+    must_not_include:
+      - "提交明文签名密码"
+
+  - id: arkts-leak-detection
+    prompt: "ArkTS 页面对象疑似泄漏，应该怎么检测？可以在线上长期打开吗？"
+    must_include:
+      - "jsLeakWatcher"
+      - "开发态"
+      - "灰度"
+    must_not_include:
+      - "生产环境长期常驻"
+
+  - id: container-reader-layout
+    prompt: "组件需要根据自身容器宽度而不是窗口宽度切换布局，应该用什么？"
+    must_include:
+      - "ContainerReader"
+      - "容器"
+      - "断点"
+    must_not_include:
+      - "只能使用窗口断点"
